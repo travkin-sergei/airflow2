@@ -5,6 +5,7 @@ import datetime
 
 
 def fetch_data():
+    """Описание."""
     conn = psycopg2.connect(
         dbname="postgres",
         user="postgres",
