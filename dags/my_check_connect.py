@@ -16,8 +16,8 @@ logger = logging.getLogger()
 
 # Получаем переменные
 doc_md = """
-# ddddd
-## is_access_granted_task - Проверка доступов и разрешений 
+# Tack = access_granted_task
+Задача для проверки доступов перед началом работы основного DAG  
 """
 DAG_NAME = os.path.basename(__file__).replace('.py', '')
 CONN_ADB = 'postgresql://postgres:123456@host.docker.internal:5432/postgres'
@@ -220,7 +220,7 @@ default_args = {
 # Создание DAG
 dag = DAG(
     dag_id=os.path.basename(__file__).replace('.py', ''),  # Задаем имя DAG
-    doc_md='Пример DAG с проверкой доступа.',  # Подключаем описательную документацию
+    doc_md=doc_md,  # Подключаем описательную документацию
     catchup=False,  # Установите в False, если не хотите обрабатывать пропущенные запуски
     schedule_interval='@daily',  # Задаем время запуска
     default_args=default_args,
