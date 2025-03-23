@@ -11,9 +11,9 @@ services:
     volumes:
       - postgres-db-volume:/var/lib/postgresql/data
     ports:
-      - "5433:5432"  # 👈 Даем доступ к БД с хоста через 5433
+      - "5433:5432"  # Даем доступ к БД с хоста через 5433
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "airflow"]
+      test: [ "CMD", "pg_isready", "-U", "airflow" ]
       interval: 10s
       retries: 5
       start_period: 5s
@@ -25,7 +25,7 @@ services:
     expose:
       - 6379
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: [ "CMD", "redis-cli", "ping" ]
       interval: 10s
       timeout: 30s
       retries: 50
@@ -33,7 +33,9 @@ services:
     restart: always
 
   airflow-webserver:
-    image: apache/airflow:2.10.5
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: airflow_webserver
     command: webserver
     environment:
@@ -55,7 +57,9 @@ services:
     restart: always
 
   airflow-scheduler:
-    image: apache/airflow:2.10.5
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: airflow_scheduler
     command: scheduler
     environment:
@@ -73,7 +77,9 @@ services:
     restart: always
 
   airflow-worker:
-    image: apache/airflow:2.10.5
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: airflow_worker
     command: celery worker
     environment:
@@ -91,7 +97,9 @@ services:
     restart: always
 
   airflow-triggerer:
-    image: apache/airflow:2.10.5
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: airflow_triggerer
     command: triggerer
     environment:
